@@ -1,0 +1,85 @@
+{
+  "couple": {
+    "groom": {
+      "firstName": "Bùi Ngọc",
+      "lastName": "Bảo",
+      "fullName": "Bùi Ngọc Bảo",
+      "parent": "Con ông Bùi Văn Bích & bà Tạ Thị Vĩnh",
+      "avatar": "/images/groom.jpg"
+    },
+    "bride": {
+      "firstName": "Trần Thị",
+      "lastName": "Lan Phương",
+      "fullName": "Trần Thị Lan Phương",
+      "parent": "Con ông Trần Tuấn Anh & bà Tạ Thị Vân",
+      "avatar": "/images/bride.jpg"
+    },
+    "coverPhoto": "/images/picture music.jpg",
+    "photos": [
+      "/images/gallery/photo1.jpg",
+      "/images/gallery/photo2.jpg",
+      "/images/gallery/photo3.jpg",
+      "/images/gallery/photo4.jpg",
+      "/images/gallery/photo5.jpg",
+      "/images/gallery/photo6.jpg"
+    ]
+  },
+  "wedding": {
+    "greetingText": "Trân trọng kính mời",
+    "title": "Chúng mình cưới!",
+    "description": "Chúng tôi vui mừng thông báo và kính mời bạn đến chung vui trong ngày trọng đại của chúng tôi.",
+    "date": "2026-06-15",
+    "time": "10:00",
+    "lunarDate": "Ngày 01 tháng 05 năm Bính Ngọ",
+    "events": [
+      {
+        "name": "Lễ Vu Quy",
+        "date": "2026-06-15",
+        "time": "08:00",
+        "venue": "Tư gia nhà gái",
+        "address": "Khu 5, Đinh Xá - Nguyệt Đức - Phú Thọ",
+        "mapUrl": "https://maps.app.goo.gl/CoQShx1cxL1ujfnm6"
+      },
+      {
+        "name": "Lễ Thành Hôn",
+        "date": "2026-06-15",
+        "time": "10:00",
+        "venue": "Tư gia nhà trai",
+        "address": "Số nhà 31, Khu 1, Đinh Xá - Nguyệt Đức - Phú Thọ",
+        "mapUrl": "https://maps.app.goo.gl/71mpAYAKpGRGDQUF8"
+      },
+      {
+        "name": "Tiệc Cưới",
+        "date": "2026-06-15",
+        "time": "18:00",
+        "venue": "Tư gia nhà trai",
+        "address": "Số nhà 31, Khu 1, Đinh Xá - Nguyệt Đức - Phú Thọ",
+        "mapUrl": "https://maps.app.goo.gl/71mpAYAKpGRGDQUF8"
+      }
+    ]
+  },
+  "music": {
+    "embedUrl": "https://zingmp3.vn/embed/song/ZW79ZBE8?start=true"
+  },
+  "bankAccounts": [
+    {
+      "name": "Bùi Ngọc Bảo",
+      "bank": "Vietcombank",
+      "accountNumber": "0123456789",
+      "qrCode": "/images/qr-groom.jpg"
+    },
+    {
+      "name": "Trần Thị Lan Phương",
+      "bank": "Techcombank",
+      "accountNumber": "9876543210",
+      "qrCode": "/images/qr-bride.jpg"
+    }
+  ],
+  "theme": {
+    "primaryColor": "#d4a373",
+    "secondaryColor": "#faedcd",
+    "accentColor": "#e63946",
+    "fontFamily": "'Playfair Display', 'Dancing Script', serif",
+    "backgroundPattern": "floral"
+  }
+}

@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  color: #3d3229;
+  background: #fdf8f0;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #fdf8f0;
+}
+
+.loading-heart {
+  font-size: 3rem;
+  color: var(--accent, #e63946);
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+.loading-screen p {
+  margin-top: 1rem;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  color: #8a7968;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
