@@ -57,7 +57,7 @@ File cấu hình trung tâm. Chỉ cần sửa file này để thay đổi toàn
 | `couple.photos` | Danh sách ảnh gallery |
 | `wedding.date` / `wedding.time` | Ngày giờ cưới (dùng cho đếm ngược) |
 | `wedding.events[]` | Danh sách sự kiện: tên, giờ, địa điểm, link Google Maps |
-| `music.src` | Đường dẫn file nhạc nền |
+| `music.embedUrl` | Link embed nhạc nền (Zing MP3) |
 | `theme` | Màu chủ đạo, font chữ, kiểu nền |
 | `bankAccounts[]` | Thông tin tài khoản mừng cưới online |
 
@@ -147,6 +147,81 @@ client/public/
 │       ├── photo1.jpg     # Ảnh pre-wedding
 │       ├── photo2.jpg
 │       └── ...
-└── music/
-    └── background.mp3     # Nhạc nền
+└── data/
+    └── wedding.json   # Bản copy JSON cho static hosting (Vercel/Netlify)
+```
+
+## Deploy lên Vercel (Hosting miễn phí)
+
+### Bước 1: Chuẩn bị
+
+Đảm bảo file `wedding.json` đã được copy vào `client/public/data/` để React có thể đọc trực tiếp mà không cần backend:
+
+```bash
+mkdir -p client/public/data
+cp data/wedding.json client/public/data/wedding.json
+```
+
+> **Lưu ý:** Mỗi khi sửa `data/wedding.json`, nhớ copy lại vào `client/public/data/` trước khi deploy.
+
+### Bước 2: Tạo tài khoản Vercel
+
+1. Truy cập https://vercel.com
+2. Click **Sign Up** → Đăng ký bằng **GitHub** (khuyên dùng) hoặc Email
+3. Xác nhận email nếu cần
+
+### Bước 3: Cài Vercel CLI
+
+```bash
+npm install -g vercel
+```
+
+### Bước 4: Đăng nhập Vercel từ terminal
+
+```bash
+vercel login
+```
+
+- Chọn phương thức đăng nhập (GitHub / Email)
+- Trình duyệt sẽ tự mở để xác thực
+- Quay lại terminal khi thấy "Congratulations! You are now signed in."
+
+### Bước 5: Deploy
+
+```bash
+cd client
+vercel --prod --yes
+```
+
+Vercel sẽ tự động:
+- Nhận diện project React (Create React App)
+- Chạy `npm install` + `npm run build`
+- Deploy lên production
+
+Sau khi xong sẽ nhận được link dạng: `https://ten-project.vercel.app`
+
+### Bước 6: Đổi tên domain (tùy chọn)
+
+1. Truy cập https://vercel.com/dashboard
+2. Chọn project vừa deploy
+3. Vào **Settings** → **Domains**
+4. Thêm domain mới, ví dụ: `happy-ending.vercel.app`
+5. Hoặc thêm domain riêng nếu có (ví dụ: `thiepcuoi.com`)
+
+### Deploy lại sau khi sửa code
+
+```bash
+# Sửa code xong, copy lại JSON nếu có thay đổi
+cp data/wedding.json client/public/data/wedding.json
+
+# Deploy lại
+cd client
+vercel --prod --yes
+```
+
+### Link cá nhân hóa trên production
+
+```
+https://ten-project.vercel.app?to=Anh Nguyễn Văn A
+https://ten-project.vercel.app?to=Chị Trần Thị B
 ```
