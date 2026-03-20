@@ -6,8 +6,12 @@ function Navigation() {
 
   const navItems = [
     { id: 'home', label: 'Trang chủ', icon: '♥' },
-    { id: 'countdown', label: 'Đếm ngược', icon: '⏳' },
+    { id: 'couple', label: 'Cặp đôi', icon: '💑' },
+    { id: 'lovestory', label: 'Chuyện tình', icon: '💕' },
     { id: 'events', label: 'Sự kiện', icon: '📍' },
+    { id: 'gallery', label: 'Album', icon: '📸' },
+    { id: 'rsvp', label: 'Tham dự', icon: '✉' },
+    { id: 'gift', label: 'Mừng cưới', icon: '🎁' },
   ];
 
   useEffect(() => {

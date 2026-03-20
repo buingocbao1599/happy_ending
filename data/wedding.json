@@ -11,17 +11,17 @@
       "firstName": "Trần Thị",
       "lastName": "Lan Phương",
       "fullName": "Trần Thị Lan Phương",
-      "parent": "Con ông Trần Tuấn Anh & bà Tạ Thị Vân",
+      "parent": "Con ông Trần Tuấn Anh & bà Tạ Thị Bích Vân",
       "avatar": "/images/bride.jpg"
     },
-    "coverPhoto": "/images/picture music.jpg",
+    "coverPhoto": "/images/nen_phan1.jpg",
     "photos": [
-      "/images/gallery/photo1.jpg",
-      "/images/gallery/photo2.jpg",
-      "/images/gallery/photo3.jpg",
-      "/images/gallery/photo4.jpg",
-      "/images/gallery/photo5.jpg",
-      "/images/gallery/photo6.jpg"
+      "/images/anh_cuoi1.jpg",
+      "/images/anh_cuoi2.jpg",
+      "/images/anh_cuoi3.jpg",
+      "/images/anh_cuoi4.jpg",
+      "/images/anh_cuoi5.jpg",
+      "/images/anh_cuoi6.jpg"
     ]
   },
   "wedding": {
@@ -58,21 +58,49 @@
       }
     ]
   },
+  "loveStory": [
+    {
+      "date": "2020",
+      "title": "Lần đầu gặp gỡ",
+      "description": "Chúng mình gặp nhau lần đầu tiên và cảm nhận được sự đặc biệt từ ánh mắt đầu tiên.",
+      "icon": "💫"
+    },
+    {
+      "date": "2021",
+      "title": "Bắt đầu hẹn hò",
+      "description": "Sau một thời gian tìm hiểu, chúng mình chính thức bên nhau và bắt đầu hành trình tình yêu.",
+      "icon": "💕"
+    },
+    {
+      "date": "2024",
+      "title": "Lời cầu hôn",
+      "description": "Anh đã quỳ gối và nói: 'Em có muốn cùng anh đi hết cuộc đời này không?'. Và em đã nói: 'Có!'",
+      "icon": "💍"
+    },
+    {
+      "date": "15/06/2026",
+      "title": "Ngày trọng đại",
+      "description": "Chúng mình chính thức về chung một nhà, bắt đầu chương mới của cuộc đời.",
+      "icon": "💒"
+    }
+  ],
   "music": {
-    "embedUrl": "https://zingmp3.vn/embed/song/ZW79ZBE8?start=true"
+    "embedUrl": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tajobs/cuoi-nhau-di-yes-i-do-bui-anh-tuan-ft-hien-ho&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false&color=%23d4a373"
   },
   "bankAccounts": [
     {
-      "name": "Bùi Ngọc Bảo",
+      "name": "BUI NGOC BAO",
       "bank": "Vietcombank",
-      "accountNumber": "0123456789",
-      "qrCode": "/images/qr-groom.jpg"
+      "accountNumber": "1025167414",
+      "branch": "PGD Văn Quán",
+      "qrCode": "/images/qr_chure.png"
     },
     {
-      "name": "Trần Thị Lan Phương",
-      "bank": "Techcombank",
-      "accountNumber": "9876543210",
-      "qrCode": "/images/qr-bride.jpg"
+      "name": "TRAN THI LAN PHUONG",
+      "bank": "VietinBank",
+      "accountNumber": "107874487736",
+      "branch": "CN Chương Dương - PGD Học Viện",
+      "qrCode": "/images/qr_codau.png"
     }
   ],
   "theme": {

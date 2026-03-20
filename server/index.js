@@ -27,6 +27,44 @@ app.get('/api/wedding', (req, res) => {
   }
 });
 
+// API: Get all wishes
+const wishesPath = path.join(__dirname, '..', 'data', 'wishes.json');
+
+function readWishes() {
+  try {
+    return JSON.parse(fs.readFileSync(wishesPath, 'utf-8'));
+  } catch {
+    return [];
+  }
+}
+
+function saveWishes(wishes) {
+  fs.writeFileSync(wishesPath, JSON.stringify(wishes, null, 2), 'utf-8');
+}
+
+app.get('/api/wishes', (req, res) => {
+  res.json(readWishes());
+});
+
+// API: Post a new wish
+app.post('/api/wishes', (req, res) => {
+  const { name, message } = req.body;
+  if (!name || !message) {
+    return res.status(400).json({ error: 'Name and message are required' });
+  }
+
+  const wishes = readWishes();
+  const newWish = {
+    name: name.trim(),
+    message: message.trim(),
+    time: new Date().toISOString(),
+  };
+  wishes.unshift(newWish);
+  saveWishes(wishes);
+
+  res.json(newWish);
+});
+
 // Serve static React build in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '..', 'client', 'build')));

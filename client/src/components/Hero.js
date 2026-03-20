@@ -34,6 +34,7 @@ function Hero({ couple, wedding, guestName }) {
           <div className="guest-greeting fade-in">
             <p className="greeting-text">{wedding.greetingText}</p>
             <p className="guest-name">{guestName}</p>
+            <p className="greeting-event">Đến lễ Thành Hôn</p>
           </div>
         )}
 
