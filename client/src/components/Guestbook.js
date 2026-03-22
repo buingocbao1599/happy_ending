@@ -11,14 +11,16 @@ function formatTime(isoString) {
   return `${days} ngày trước`;
 }
 
-function Guestbook() {
+function Guestbook({ coupleSlug }) {
   const [wishes, setWishes] = useState([]);
   const [form, setForm] = useState({ name: '', message: '' });
   const [sending, setSending] = useState(false);
 
+  const wishesUrl = coupleSlug ? `/api/wishes/${encodeURIComponent(coupleSlug)}` : '/api/wishes';
+
   // Load wishes from API on mount
   useEffect(() => {
-    fetch('/api/wishes')
+    fetch(wishesUrl)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setWishes(data);
@@ -31,7 +33,7 @@ function Guestbook() {
     if (!form.name.trim() || !form.message.trim()) return;
 
     setSending(true);
-    fetch('/api/wishes', {
+    fetch(wishesUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),

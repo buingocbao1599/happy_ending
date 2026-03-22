@@ -12,7 +12,9 @@ import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import FloatingPetals from './components/FloatingPetals';
 import MusicPlayer from './components/MusicPlayer';
+import Admin from './components/Admin';
 import './assets/css/App.css';
+import './assets/css/Admin.css';
 
 // Chuyển "bạn_đạt" → "Bạn Đạt"
 function formatGuestName(raw) {
@@ -25,43 +27,90 @@ function formatGuestName(raw) {
     .trim();
 }
 
+// Parse URL: /{coupleSlug}?{guestName}
+// Ví dụ: /bao_&_phuong?quynh_ia_chay
+//        /admin
+//        /admin/bao_&_phuong
+function parseURL() {
+  const pathname = window.location.pathname;
+  const search = window.location.search;
+
+  // Admin routes
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    const adminSlug = pathname.replace('/admin/', '').replace('/admin', '');
+    return { page: 'admin', coupleSlug: adminSlug || null, guestName: '' };
+  }
+
+  // Wedding route: /{coupleSlug}?{guestName}
+  const coupleSlug = decodeURIComponent(pathname.substring(1)) || null;
+
+  let guestName = '';
+  if (search.length > 1) {
+    const params = new URLSearchParams(search);
+    const toParam = params.get('to');
+    if (toParam) {
+      guestName = formatGuestName(toParam);
+    } else {
+      const rawName = decodeURIComponent(search.substring(1).split('&')[0]);
+      guestName = formatGuestName(rawName);
+    }
+  }
+
+  return { page: 'wedding', coupleSlug, guestName };
+}
+
 function App() {
+  const { page, coupleSlug, guestName } = parseURL();
+
+  if (page === 'admin') {
+    return <Admin coupleSlug={coupleSlug} />;
+  }
+
+  return <WeddingApp coupleSlug={coupleSlug} guestName={guestName} />;
+}
+
+function WeddingApp({ coupleSlug, guestName }) {
   const [weddingData, setWeddingData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [guestName, setGuestName] = useState('');
+  const [error, setError] = useState('');
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    // Hỗ trợ 2 format URL:
-    // 1. /?bạn_đạt  → tên = "Bạn Đạt"
-    // 2. /?to=bạn_đạt → tên = "Bạn Đạt"
-    const search = window.location.search;
-    const params = new URLSearchParams(search);
-    const toParam = params.get('to');
+    // Xác định API URL dựa trên coupleSlug
+    const apiUrl = coupleSlug
+      ? `/api/wedding/${encodeURIComponent(coupleSlug)}`
+      : '/api/wedding';
 
-    if (toParam) {
-      setGuestName(formatGuestName(toParam));
-    } else if (search.length > 1) {
-      // Lấy phần sau dấu ? (bỏ ký tự ?)
-      const rawName = decodeURIComponent(search.substring(1).split('&')[0]);
-      setGuestName(formatGuestName(rawName));
-    }
+    const staticUrl = coupleSlug
+      ? `/data/couples/${encodeURIComponent(coupleSlug)}/wedding.json`
+      : '/data/wedding.json';
 
-    fetch('/api/wedding')
-      .then((res) => res.json())
+    fetch(apiUrl)
+      .then((res) => {
+        if (!res.ok) throw new Error('Not found');
+        return res.json();
+      })
       .then((data) => {
         setWeddingData(data);
         setLoading(false);
       })
       .catch(() => {
-        fetch('/data/wedding.json')
-          .then((res) => res.json())
+        // Fallback: đọc static JSON
+        fetch(staticUrl)
+          .then((res) => {
+            if (!res.ok) throw new Error('Not found');
+            return res.json();
+          })
           .then((data) => {
             setWeddingData(data);
             setLoading(false);
+          })
+          .catch(() => {
+            setError('Không tìm thấy thiệp cưới');
+            setLoading(false);
           });
       });
-  }, []);
+  }, [coupleSlug]);
 
   if (loading) {
     return (
@@ -72,9 +121,21 @@ function App() {
     );
   }
 
+  if (error || !weddingData) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-heart">&#10084;</div>
+        <p>{error || 'Không tìm thấy thiệp cưới'}</p>
+        <a href="/" style={{ color: '#d4a373', marginTop: '1rem', display: 'block' }}>
+          Về trang chủ
+        </a>
+      </div>
+    );
+  }
+
   const { couple, wedding, loveStory, music, bankAccounts, theme } = weddingData;
 
-  // Màn hình "Mở thiệp" — khi ấn nút, trình duyệt cho phép autoplay nhạc
+  // Màn hình "Mở thiệp"
   if (!opened) {
     return (
       <div
@@ -144,11 +205,11 @@ function App() {
       </section>
 
       <section id="rsvp">
-        <RSVPForm />
+        <RSVPForm coupleSlug={coupleSlug} />
       </section>
 
       <section id="guestbook">
-        <Guestbook />
+        <Guestbook coupleSlug={coupleSlug} />
       </section>
 
       <section id="gift">

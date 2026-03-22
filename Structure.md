@@ -2,7 +2,7 @@
 
 ## Tổng quan
 
-Website thiệp cưới online được xây dựng với **React** (Frontend) và **NodeJS/Express** (Backend). Toàn bộ thông tin cô dâu, chú rể và đám cưới được quản lý qua 1 file JSON duy nhất.
+Website thiệp cưới online hỗ trợ **nhiều cặp đôi** cùng lúc, xây dựng với **React** (Frontend) và **NodeJS/Express** (Backend). Mỗi cặp đôi có riêng 1 bộ config JSON + lời chúc.
 
 ## Cấu trúc thư mục
 
@@ -10,43 +10,63 @@ Website thiệp cưới online được xây dựng với **React** (Frontend) v
 ThiepCuoiOnline/
 │
 ├── data/                              # Dữ liệu cấu hình
-│   └── wedding.json                   # ★ File config chính - chỉnh sửa thông tin đám cưới tại đây
+│   └── couples/                       # ★ Mỗi cặp đôi 1 thư mục
+│       ├── bao_&_phuong/
+│       │   ├── wedding.json           # Config thiệp cưới
+│       │   └── wishes.json            # Lời chúc từ khách mời
+│       └── minh_&_trang/              # Cặp đôi khác...
+│           ├── wedding.json
+│           └── wishes.json
 │
 ├── client/                            # Frontend - ReactJS
 │   ├── public/
-│   │   └── index.html                 # HTML gốc, load Google Fonts
+│   │   ├── index.html                 # HTML gốc, load Google Fonts
+│   │   ├── images/                    # Ảnh cô dâu, chú rể, QR, gallery
+│   │   │   ├── bao_&_phuong/          # Ảnh riêng mỗi cặp đôi (upload từ admin)
+│   │   │   ├── bride.jpg, groom.jpg   # Ảnh mặc định
+│   │   │   └── ...
+│   │   └── data/couples/              # Bản copy JSON cho static hosting
 │   │
 │   ├── src/
-│   │   ├── index.js                   # Entry point, render App vào #root
-│   │   ├── App.js                     # Component chính, fetch data từ API, quản lý routing
+│   │   ├── index.js                   # Entry point
+│   │   ├── App.js                     # Router: parse URL → Wedding page hoặc Admin
 │   │   │
-│   │   ├── components/                # Các component React
-│   │   │   ├── Hero.js                # Ảnh bìa, tên cô dâu chú rể, lời chào khách mời
-│   │   │   ├── Countdown.js           # Bộ đếm ngược: Ngày - Giờ - Phút - Giây
-│   │   │   ├── EventInfo.js           # Lịch trình sự kiện (Vu Quy, Thành Hôn, Tiệc Cưới) + link Maps
-│   │   │   ├── Navigation.js          # Thanh điều hướng cố định ở dưới màn hình
-│   │   │   ├── FloatingPetals.js      # Hiệu ứng hoa cánh rơi
-│   │   │   └── MusicPlayer.js         # Nút bật/tắt nhạc nền (góc trên phải)
+│   │   ├── components/
+│   │   │   ├── Hero.js                # Ảnh bìa, tên cặp đôi, lời chào khách mời
+│   │   │   ├── Countdown.js           # Bộ đếm ngược
+│   │   │   ├── CoupleInfo.js          # Thông tin cặp đôi (ảnh, cha mẹ)
+│   │   │   ├── LoveStory.js           # Timeline câu chuyện tình yêu
+│   │   │   ├── EventInfo.js           # Lịch trình sự kiện + Google Maps
+│   │   │   ├── Gallery.js             # Album ảnh + lightbox
+│   │   │   ├── RSVPForm.js            # Form xác nhận tham dự
+│   │   │   ├── Guestbook.js           # Sổ lưu bút
+│   │   │   ├── BankTransfer.js        # QR mừng cưới online
+│   │   │   ├── Footer.js              # Footer
+│   │   │   ├── Navigation.js          # Bottom nav bar
+│   │   │   ├── FloatingPetals.js      # Hiệu ứng hoa rơi
+│   │   │   ├── MusicPlayer.js         # Nhạc nền SoundCloud
+│   │   │   └── Admin.js               # ★ Trang quản trị (multi-couple)
 │   │   │
-│   │   └── assets/
-│   │       └── css/
-│   │           ├── index.css          # CSS global: reset, loading screen
-│   │           └── App.css            # CSS chính: animations, responsive, layout
+│   │   └── assets/css/
+│   │       ├── index.css              # CSS global
+│   │       ├── App.css                # CSS thiệp cưới
+│   │       └── Admin.css              # CSS trang admin
 │   │
-│   └── package.json                   # Dependencies: react, react-dom, react-scripts
+│   └── package.json
 │
 ├── server/                            # Backend - NodeJS
-│   ├── index.js                       # Express server: API /api/wedding, serve static build
-│   └── package.json                   # Dependencies: express, cors
+│   ├── index.js                       # Express: API multi-couple + upload ảnh
+│   └── package.json                   # Dependencies: express, cors, multer
 │
 ├── package.json                       # Root scripts: dev, build, start
-├── FEATURES.md                        # Danh sách tính năng + User Stories
-└── Structure.md                       # File này
+├── FEATURES.md                        # Danh sách tính năng + trạng thái
+├── Structure.md                       # File này
+└── SESSION_LOG.md                     # Log các session làm việc
 ```
 
 ## Mô tả các file quan trọng
 
-### `data/wedding.json`
+### `data/couples/{slug}/wedding.json`
 
 File cấu hình trung tâm. Chỉ cần sửa file này để thay đổi toàn bộ nội dung thiệp:
 

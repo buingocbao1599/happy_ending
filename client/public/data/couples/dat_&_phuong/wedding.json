@@ -1,0 +1,45 @@
+{
+  "couple": {
+    "groom": {
+      "firstName": "Nguyễn Tiến",
+      "lastName": "Đạt",
+      "fullName": "Nguyễn Tiến Đạt ",
+      "parent": "Bố Nguyễn Văn Hùng và Mẹ Tạ Thị Uyên",
+      "avatar": "/images/dat_&_phuong/1774191836394.jpg"
+    },
+    "bride": {
+      "firstName": "Phượng",
+      "lastName": "Phượng",
+      "fullName": "Phượng",
+      "parent": "Bố Nguyễn Văn Hùng và Mẹ Tạ Thị Uyên",
+      "avatar": "/images/dat_&_phuong/1774191840292.jpg"
+    },
+    "coverPhoto": "/images/dat_&_phuong/1774191895332.jpg",
+    "photos": [
+      "/images/dat_&_phuong/1774191966517.jpg",
+      "/images/dat_&_phuong/1774191972431.jpg",
+      "/images/dat_&_phuong/1774191980134.jpg"
+    ]
+  },
+  "wedding": {
+    "greetingText": "Trân trọng kính mời",
+    "title": "Chúng mình cưới!",
+    "description": "Chúng tôi vui mừng thông báo và kính mời bạn đến chung vui trong ngày trọng đại của chúng tôi.",
+    "date": "",
+    "time": "",
+    "lunarDate": "",
+    "events": []
+  },
+  "loveStory": [],
+  "music": {
+    "embedUrl": ""
+  },
+  "bankAccounts": [],
+  "theme": {
+    "primaryColor": "#d4a373",
+    "secondaryColor": "#faedcd",
+    "accentColor": "#e63946",
+    "fontFamily": "'Playfair Display', 'Dancing Script', serif",
+    "backgroundPattern": "floral"
+  }
+}
