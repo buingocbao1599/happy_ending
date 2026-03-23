@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { TEMPLATES } from '../templates';
 
 const API = 'http://localhost:5000/api/admin';
 
@@ -142,16 +143,26 @@ function CoupleAdmin({ slug }) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
-  const [activeTab, setActiveTab] = useState('couple');
+  const [activeTab, setActiveTab] = useState(
+    () => sessionStorage.getItem(`admin_tab_${slug}`) || 'couple'
+  );
+
+  const changeTab = (tab) => {
+    sessionStorage.setItem(`admin_tab_${slug}`, tab);
+    setActiveTab(tab);
+  };
 
   useEffect(() => {
-    fetchData();
+    fetch(`${API}/wedding/${encodeURIComponent(slug)}`)
+      .then((res) => res.json())
+      .then((d) => { setData(d); setLoading(false); })
+      .catch(() => { setMessage('Không thể kết nối server'); setLoading(false); });
   }, [slug]);
 
   const fetchData = () => {
     fetch(`${API}/wedding/${encodeURIComponent(slug)}`)
       .then((res) => res.json())
-      .then((d) => { setData(d); setLoading(false); })
+      .then((d) => setData(d))
       .catch(() => setMessage('Không thể kết nối server'));
   };
 
@@ -287,6 +298,33 @@ function CoupleAdmin({ slug }) {
     input.click();
   };
 
+  const handleSaveTemplate = async (templateId) => {
+    // Optimistic update: cập nhật UI ngay lập tức
+    setData((prev) => ({
+      ...prev,
+      theme: { ...prev.theme, templateId },
+    }));
+
+    try {
+      const res = await fetch(`${API}/theme/${encodeURIComponent(slug)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ templateId }),
+      });
+      if (res.ok) {
+        showMessage('Đã áp dụng template!');
+      } else {
+        fetchData(); // rollback
+        let errMsg = `Lỗi ${res.status}: không thể lưu template`;
+        try { const r = await res.json(); errMsg = r.error || errMsg; } catch {}
+        showMessage(errMsg);
+      }
+    } catch {
+      fetchData(); // rollback
+      showMessage('Không thể kết nối server — hãy kiểm tra server đang chạy');
+    }
+  };
+
   const addBankAccount = () => {
     setData((prev) => ({
       ...prev,
@@ -329,21 +367,27 @@ function CoupleAdmin({ slug }) {
       <div className="admin-tabs">
         <button
           className={activeTab === 'couple' ? 'active' : ''}
-          onClick={() => setActiveTab('couple')}
+          onClick={() => changeTab('couple')}
         >
           Thông tin cặp đôi
         </button>
         <button
           className={activeTab === 'photos' ? 'active' : ''}
-          onClick={() => setActiveTab('photos')}
+          onClick={() => changeTab('photos')}
         >
           Ảnh cưới
         </button>
         <button
           className={activeTab === 'bank' ? 'active' : ''}
-          onClick={() => setActiveTab('bank')}
+          onClick={() => changeTab('bank')}
         >
           Mừng cưới
+        </button>
+        <button
+          className={activeTab === 'template' ? 'active' : ''}
+          onClick={() => changeTab('template')}
+        >
+          Giao diện
         </button>
       </div>
 
@@ -486,6 +530,69 @@ function CoupleAdmin({ slug }) {
           <button className="admin-save-btn" onClick={handleSaveBank} disabled={saving}>
             {saving ? 'Đang lưu...' : 'Lưu thông tin ngân hàng'}
           </button>
+        </div>
+      )}
+
+      {activeTab === 'template' && (
+        <div className="admin-section">
+          <div className="admin-card">
+            <h2>Chọn giao diện thiệp cưới</h2>
+            <p className="admin-hint">
+              Template hiện tại: <strong>{TEMPLATES[data.theme?.templateId]?.name || 'Hồng Vintage'}</strong>
+            </p>
+            <div className="admin-template-grid">
+              {Object.values(TEMPLATES).map((tpl) => {
+                const isActive = (data.theme?.templateId || 'vintage-rose') === tpl.id;
+                return (
+                  <div
+                    key={tpl.id}
+                    className={`admin-template-card ${isActive ? 'active' : ''}`}
+                    onClick={() => handleSaveTemplate(tpl.id)}
+                  >
+                    {/* Preview màu sắc */}
+                    <div className="admin-template-preview">
+                      <div
+                        className="admin-template-bg"
+                        style={{ background: tpl.secondaryColor }}
+                      >
+                        <div
+                          className="admin-template-bar"
+                          style={{ background: tpl.primaryColor }}
+                        />
+                        <div className="admin-template-dots">
+                          <span style={{ background: tpl.primaryColor }} />
+                          <span style={{ background: tpl.accentColor }} />
+                        </div>
+                        <div
+                          className="admin-template-btn-preview"
+                          style={{ background: tpl.primaryColor }}
+                        />
+                      </div>
+                      {/* Effect badge */}
+                      <div className="admin-template-effect">
+                        {tpl.effect === 'petals' && '🌸'}
+                        {tpl.effect === 'snow' && '❄️'}
+                        {tpl.effect === 'leaves' && '🍃'}
+                        {tpl.effect === 'bubbles' && '🫧'}
+                      </div>
+                    </div>
+
+                    <div className="admin-template-info">
+                      <h3>{tpl.name}</h3>
+                      <p>{tpl.description}</p>
+                    </div>
+
+                    {isActive && (
+                      <div className="admin-template-active-badge">✓ Đang dùng</div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <p className="admin-hint" style={{ marginTop: '1rem' }}>
+              Nhấn vào template để áp dụng ngay. Xem trước thiệp để kiểm tra kết quả.
+            </p>
+          </div>
         </div>
       )}
     </div>

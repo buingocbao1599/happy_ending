@@ -1,0 +1,335 @@
+/* =====================================================
+   TEMPLATES CSS — Override theo từng templateId
+   Mỗi template thêm class vào .app (ví dụ: .template-modern-white)
+   CSS variables --primary/--secondary/--accent được inject từ App.js
+   ===================================================== */
+
+/* ========== VINTAGE ROSE (default) ========== */
+/* Không cần override, đây là style mặc định của App.css */
+
+/* ========== MODERN WHITE ========== */
+.template-modern-white {
+  --gradient-primary: linear-gradient(135deg, var(--primary), #1a1a1a);
+  --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+}
+
+/* Invite cover */
+.template-modern-white .invite-cover {
+  background: linear-gradient(135deg, #ffffff 0%, var(--secondary) 50%, #f8f8f8 100%);
+}
+
+.template-modern-white .invite-ornament {
+  color: var(--accent);
+}
+
+.template-modern-white .invite-open-btn {
+  background: linear-gradient(135deg, var(--primary), #1a1a1a);
+  letter-spacing: 3px;
+  font-family: 'Quicksand', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Sections */
+.template-modern-white .section-title {
+  letter-spacing: 4px;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+
+.template-modern-white .section-title::after {
+  width: 40px;
+  height: 1px;
+}
+
+/* Couple Info */
+.template-modern-white .couple-info-section {
+  background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+}
+
+/* Countdown */
+.template-modern-white .countdown-item {
+  background: var(--primary);
+  color: #ffffff;
+  border-radius: 4px;
+}
+
+.template-modern-white .countdown-number {
+  color: #ffffff;
+}
+
+.template-modern-white .countdown-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Events */
+.template-modern-white .event-card {
+  background: linear-gradient(135deg, var(--secondary) 0%, #ffffff 100%);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+
+/* Buttons */
+.template-modern-white .rsvp-submit-btn,
+.template-modern-white .submit-btn {
+  background: linear-gradient(135deg, var(--primary), #1a1a1a);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border-radius: 4px;
+}
+
+/* Gallery */
+.template-modern-white .gallery-section {
+  background: linear-gradient(135deg, #ffffff 0%, var(--secondary) 100%);
+}
+
+/* Floating effect — snow: màu trắng */
+.template-modern-white .floating-particle {
+  background: rgba(200, 200, 200, 0.7);
+  border-radius: 50%;
+}
+
+/* Navigation */
+.template-modern-white .nav-link.active {
+  color: var(--accent);
+}
+
+/* ========== GARDEN GREEN ========== */
+.template-garden-green {
+  --gradient-primary: linear-gradient(135deg, var(--primary), #3a6248);
+  --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, #f0faec 100%);
+}
+
+/* Invite cover */
+.template-garden-green .invite-cover {
+  background: linear-gradient(135deg, #f0faec 0%, var(--secondary) 50%, #e0f2d5 100%);
+}
+
+.template-garden-green .invite-ornament {
+  color: var(--accent);
+}
+
+.template-garden-green .invite-open-btn {
+  background: linear-gradient(135deg, var(--primary), #3a6248);
+}
+
+.template-garden-green .invite-couple {
+  color: var(--primary);
+}
+
+.template-garden-green .invite-cover-content {
+  color: var(--primary);
+}
+
+/* Sections */
+.template-garden-green .couple-info-section {
+  background: linear-gradient(135deg, var(--secondary) 0%, #f0faec 100%);
+}
+
+.template-garden-green .gallery-section {
+  background: linear-gradient(135deg, #f0faec 0%, var(--secondary) 100%);
+}
+
+/* Event cards */
+.template-garden-green .event-card {
+  border-left: 4px solid var(--primary);
+  background: linear-gradient(135deg, var(--secondary) 0%, #f0faec 100%);
+}
+
+/* Buttons */
+.template-garden-green .rsvp-submit-btn,
+.template-garden-green .submit-btn {
+  background: linear-gradient(135deg, var(--primary), #3a6248);
+}
+
+/* Section divider */
+.template-garden-green .section-title::after {
+  background: var(--accent);
+}
+
+/* Floating leaves color */
+.template-garden-green .floating-particle {
+  background: var(--primary);
+  border-radius: 50% 0 50% 0;
+}
+
+/* ========== ROYAL BLUE ========== */
+.template-royal-blue {
+  --gradient-primary: linear-gradient(135deg, var(--primary), #0d1e3d);
+  --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, #f8f0e5 100%);
+}
+
+/* Invite cover */
+.template-royal-blue .invite-cover {
+  background: linear-gradient(135deg, #0d1e3d 0%, var(--primary) 50%, #1e3a6a 100%);
+}
+
+.template-royal-blue .invite-cover-content {
+  color: var(--secondary);
+}
+
+.template-royal-blue .invite-couple {
+  color: var(--accent);
+}
+
+.template-royal-blue .invite-label {
+  color: rgba(240, 230, 211, 0.8);
+}
+
+.template-royal-blue .invite-greeting {
+  color: rgba(240, 230, 211, 0.9);
+}
+
+.template-royal-blue .invite-hint {
+  color: rgba(240, 230, 211, 0.6);
+}
+
+.template-royal-blue .invite-open-btn {
+  background: linear-gradient(135deg, var(--accent), #a07830);
+  color: #ffffff;
+}
+
+.template-royal-blue .invite-ornament {
+  color: var(--accent);
+}
+
+/* Sections — dùng màu navy nhẹ cho headers */
+.template-royal-blue .couple-info-section {
+  background: linear-gradient(135deg, var(--secondary) 0%, #f8f0e5 100%);
+}
+
+.template-royal-blue .gallery-section {
+  background: linear-gradient(135deg, #f8f0e5 0%, var(--secondary) 100%);
+}
+
+.template-royal-blue .event-card {
+  background: linear-gradient(135deg, var(--secondary) 0%, #f8f0e5 100%);
+  border-left: 4px solid var(--accent);
+}
+
+.template-royal-blue .section-title {
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+}
+
+.template-royal-blue .section-title::after {
+  background: var(--accent);
+  height: 2px;
+}
+
+/* Buttons */
+.template-royal-blue .rsvp-submit-btn,
+.template-royal-blue .submit-btn {
+  background: linear-gradient(135deg, var(--accent), #a07830);
+  color: #fff;
+}
+
+/* Countdown */
+.template-royal-blue .countdown-item {
+  background: var(--primary);
+  border: 1px solid var(--accent);
+  border-radius: 0;
+}
+
+.template-royal-blue .countdown-number {
+  color: var(--accent);
+}
+
+.template-royal-blue .countdown-label {
+  color: rgba(240, 230, 211, 0.8);
+}
+
+/* Floating bubbles */
+.template-royal-blue .floating-particle {
+  background: transparent;
+  border: 2px solid rgba(201, 168, 76, 0.4);
+  border-radius: 50%;
+}
+
+/* ========== FLOATING EFFECTS CSS ========== */
+
+.floating-petals-container,
+.floating-effect-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Petal */
+.floating-petal {
+  position: absolute;
+  top: -20px;
+  border-radius: 50% 0 50% 0;
+  background: radial-gradient(circle at 30% 30%, #ffb7c5, #e87c8e);
+  animation: petalFall linear forwards;
+  will-change: transform;
+}
+
+@keyframes petalFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.8; }
+  25%  { transform: translateY(25vh) rotate(90deg) translateX(30px); }
+  50%  { transform: translateY(50vh) rotate(180deg) translateX(-20px); }
+  75%  { transform: translateY(75vh) rotate(270deg) translateX(25px); }
+  100% { transform: translateY(110vh) rotate(360deg) translateX(-10px); opacity: 0; }
+}
+
+/* Snow */
+.floating-snow {
+  position: absolute;
+  top: -10px;
+  border-radius: 50%;
+  background: rgba(220, 235, 255, 0.85);
+  animation: snowFall linear forwards;
+  will-change: transform;
+}
+
+@keyframes snowFall {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.9; }
+  33%  { transform: translateY(33vh) translateX(15px) rotate(120deg); }
+  66%  { transform: translateY(66vh) translateX(-10px) rotate(240deg); }
+  100% { transform: translateY(110vh) translateX(5px) rotate(360deg); opacity: 0; }
+}
+
+/* Leaf */
+.floating-leaf {
+  position: absolute;
+  top: -20px;
+  border-radius: 50% 0 50% 0;
+  animation: leafFall linear forwards;
+  will-change: transform;
+}
+
+@keyframes leafFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.85; }
+  20%  { transform: translateY(20vh) rotate(72deg) translateX(40px); }
+  40%  { transform: translateY(40vh) rotate(144deg) translateX(-30px); }
+  60%  { transform: translateY(60vh) rotate(216deg) translateX(35px); }
+  80%  { transform: translateY(80vh) rotate(288deg) translateX(-20px); }
+  100% { transform: translateY(110vh) rotate(360deg) translateX(10px); opacity: 0; }
+}
+
+/* Bubble */
+.floating-bubble {
+  position: absolute;
+  bottom: -40px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid rgba(201, 168, 76, 0.5);
+  box-shadow: inset 0 0 6px rgba(201, 168, 76, 0.15);
+  animation: bubbleRise linear forwards;
+  will-change: transform;
+}
+
+@keyframes bubbleRise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.7; }
+  30%  { transform: translateY(-30vh) translateX(20px) scale(1.05); }
+  60%  { transform: translateY(-60vh) translateX(-15px) scale(0.95); }
+  100% { transform: translateY(-110vh) translateX(10px) scale(1); opacity: 0; }
+}

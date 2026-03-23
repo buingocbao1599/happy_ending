@@ -6,7 +6,8 @@ const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const COUPLES_DIR = path.join(__dirname, '..', 'data', 'couples');
+// DATA_DIR có thể override qua env để test dùng thư mục tạm
+const COUPLES_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data', 'couples');
 const IMAGES_DIR = path.join(__dirname, '..', 'client', 'public', 'images');
 
 app.use(cors());
@@ -210,6 +211,7 @@ app.post('/api/admin/couples', (req, res) => {
       music: { embedUrl: '' },
       bankAccounts: [],
       theme: {
+        templateId: 'vintage-rose',
         primaryColor: '#d4a373',
         secondaryColor: '#faedcd',
         accentColor: '#e63946',
@@ -322,6 +324,19 @@ app.delete('/api/admin/gallery/:slug', (req, res) => {
   }
 });
 
+// PUT: Cập nhật theme / template
+app.put('/api/admin/theme/:slug', (req, res) => {
+  try {
+    const data = readJSON(getWeddingPath(req.params.slug));
+    data.theme = { ...data.theme, ...req.body };
+    writeJSON(getWeddingPath(req.params.slug), data);
+    syncToPublic(req.params.slug, data);
+    res.json({ success: true, theme: data.theme });
+  } catch (err) {
+    res.status(500).json({ error: 'Không thể lưu theme' });
+  }
+});
+
 // DELETE: Xóa cặp đôi
 app.delete('/api/admin/couples/:slug', (req, res) => {
   try {
@@ -343,6 +358,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+// Chỉ listen khi chạy trực tiếp (không phải khi được require trong test)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

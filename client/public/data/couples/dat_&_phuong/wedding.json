@@ -18,7 +18,8 @@
     "photos": [
       "/images/dat_&_phuong/1774191966517.jpg",
       "/images/dat_&_phuong/1774191972431.jpg",
-      "/images/dat_&_phuong/1774191980134.jpg"
+      "/images/dat_&_phuong/1774191980134.jpg",
+      "/images/dat_&_phuong/1774276857725.jpg"
     ]
   },
   "wedding": {
@@ -36,6 +37,7 @@
   },
   "bankAccounts": [],
   "theme": {
+    "templateId": "modern-white",
     "primaryColor": "#d4a373",
     "secondaryColor": "#faedcd",
     "accentColor": "#e63946",

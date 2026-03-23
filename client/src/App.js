@@ -10,57 +10,20 @@ import Guestbook from './components/Guestbook';
 import BankTransfer from './components/BankTransfer';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
-import FloatingPetals from './components/FloatingPetals';
+import FloatingEffect from './components/FloatingEffect';
 import MusicPlayer from './components/MusicPlayer';
 import Admin from './components/Admin';
+import { TEMPLATES, DEFAULT_TEMPLATE_ID } from './templates';
+import { formatGuestName, parseURL } from './utils';
 import './assets/css/App.css';
 import './assets/css/Admin.css';
-
-// Chuyển "bạn_đạt" → "Bạn Đạt"
-function formatGuestName(raw) {
-  return raw
-    .replace(/_/g, ' ')
-    .replace(/\+/g, ' ')
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
-    .trim();
-}
-
-// Parse URL: /{coupleSlug}?{guestName}
-// Ví dụ: /bao_&_phuong?quynh_ia_chay
-//        /admin
-//        /admin/bao_&_phuong
-function parseURL() {
-  const pathname = window.location.pathname;
-  const search = window.location.search;
-
-  // Admin routes
-  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-    const adminSlug = pathname.replace('/admin/', '').replace('/admin', '');
-    return { page: 'admin', coupleSlug: adminSlug || null, guestName: '' };
-  }
-
-  // Wedding route: /{coupleSlug}?{guestName}
-  const coupleSlug = decodeURIComponent(pathname.substring(1)) || null;
-
-  let guestName = '';
-  if (search.length > 1) {
-    const params = new URLSearchParams(search);
-    const toParam = params.get('to');
-    if (toParam) {
-      guestName = formatGuestName(toParam);
-    } else {
-      const rawName = decodeURIComponent(search.substring(1).split('&')[0]);
-      guestName = formatGuestName(rawName);
-    }
-  }
-
-  return { page: 'wedding', coupleSlug, guestName };
-}
+import './assets/css/templates.css';
 
 function App() {
-  const { page, coupleSlug, guestName } = parseURL();
+  const { page, coupleSlug, guestName } = parseURL(
+    window.location.pathname,
+    window.location.search
+  );
 
   if (page === 'admin') {
     return <Admin coupleSlug={coupleSlug} />;
@@ -135,16 +98,22 @@ function WeddingApp({ coupleSlug, guestName }) {
 
   const { couple, wedding, loveStory, music, bankAccounts, theme } = weddingData;
 
+  // Resolve template preset
+  const templateId = theme.templateId || DEFAULT_TEMPLATE_ID;
+  const preset = TEMPLATES[templateId] || TEMPLATES[DEFAULT_TEMPLATE_ID];
+  const cssVars = {
+    '--primary': preset.primaryColor,
+    '--secondary': preset.secondaryColor,
+    '--accent': preset.accentColor,
+  };
+  const templateClass = `template-${templateId}`;
+
   // Màn hình "Mở thiệp"
   if (!opened) {
     return (
       <div
-        className="invite-cover"
-        style={{
-          '--primary': theme.primaryColor,
-          '--secondary': theme.secondaryColor,
-          '--accent': theme.accentColor,
-        }}
+        className={`invite-cover ${templateClass}`}
+        style={cssVars}
       >
         <div className="invite-cover-content">
           <div className="invite-ornament">&#10053;</div>
@@ -169,14 +138,10 @@ function WeddingApp({ coupleSlug, guestName }) {
 
   return (
     <div
-      className="app"
-      style={{
-        '--primary': theme.primaryColor,
-        '--secondary': theme.secondaryColor,
-        '--accent': theme.accentColor,
-      }}
+      className={`app ${templateClass}`}
+      style={cssVars}
     >
-      <FloatingPetals />
+      <FloatingEffect type={preset.effect} />
       <Navigation />
       <MusicPlayer embedUrl={music.embedUrl} autoPlay />
 

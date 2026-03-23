@@ -1,0 +1,48 @@
+export const TEMPLATES = {
+  'vintage-rose': {
+    id: 'vintage-rose',
+    name: 'Hồng Vintage',
+    description: 'Nhẹ nhàng, lãng mạn với tông màu hồng đào',
+    primaryColor: '#d4a373',
+    secondaryColor: '#faedcd',
+    accentColor: '#e63946',
+    primaryDark: '#c9956a',
+    secondaryLight: '#fff5e6',
+    effect: 'petals',
+  },
+  'modern-white': {
+    id: 'modern-white',
+    name: 'Trắng Hiện Đại',
+    description: 'Tinh tế, sang trọng với tông trắng và vàng đồng',
+    primaryColor: '#2c2c2c',
+    secondaryColor: '#f0f0f0',
+    accentColor: '#c9a84c',
+    primaryDark: '#1a1a1a',
+    secondaryLight: '#ffffff',
+    effect: 'snow',
+  },
+  'garden-green': {
+    id: 'garden-green',
+    name: 'Xanh Lá Vườn',
+    description: 'Tươi mát, gần gũi thiên nhiên với tông xanh lá',
+    primaryColor: '#4a7c59',
+    secondaryColor: '#e8f5e0',
+    accentColor: '#f4a261',
+    primaryDark: '#3a6248',
+    secondaryLight: '#f0faec',
+    effect: 'leaves',
+  },
+  'royal-blue': {
+    id: 'royal-blue',
+    name: 'Xanh Navy Sang Trọng',
+    description: 'Uy nghiêm, hoàng gia với tông xanh navy và vàng',
+    primaryColor: '#1a2e5a',
+    secondaryColor: '#f0e6d3',
+    accentColor: '#c9a84c',
+    primaryDark: '#0d1e3d',
+    secondaryLight: '#f8f0e5',
+    effect: 'bubbles',
+  },
+};
+
+export const DEFAULT_TEMPLATE_ID = 'vintage-rose';

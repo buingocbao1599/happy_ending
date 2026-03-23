@@ -7,7 +7,10 @@
     "server": "cd server && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "cd client && npm run build",
-    "start": "npm run server"
+    "start": "npm run server",
+    "test": "concurrently \"npm run test:client\" \"npm run test:server\"",
+    "test:client": "cd client && npm test",
+    "test:server": "cd server && npm test"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

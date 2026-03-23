@@ -476,3 +476,120 @@
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ========== TEMPLATE PICKER ========== */
+
+.admin-template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.admin-template-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  background: #fff;
+}
+
+.admin-template-card:hover {
+  border-color: #d4a373;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.admin-template-card.active {
+  border-color: #d4a373;
+  box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.25);
+}
+
+.admin-template-preview {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.admin-template-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+}
+
+.admin-template-bar {
+  width: 70%;
+  height: 8px;
+  border-radius: 4px;
+  opacity: 0.9;
+}
+
+.admin-template-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.admin-template-dots span {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  opacity: 0.85;
+  display: block;
+}
+
+.admin-template-btn-preview {
+  width: 60%;
+  height: 10px;
+  border-radius: 5px;
+  opacity: 0.7;
+}
+
+.admin-template-effect {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 1.2rem;
+}
+
+.admin-template-info {
+  padding: 0.8rem 1rem;
+}
+
+.admin-template-info h3 {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0 0 0.3rem;
+  font-weight: 600;
+}
+
+.admin-template-info p {
+  font-size: 0.78rem;
+  color: #777;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.admin-template-active-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #d4a373;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+  .admin-template-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
