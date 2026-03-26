@@ -143,7 +143,7 @@ function WeddingApp({ coupleSlug, guestName }) {
     >
       <FloatingEffect type={preset.effect} />
       <Navigation />
-      <MusicPlayer embedUrl={music.embedUrl} autoPlay />
+      <MusicPlayer embedUrl={music.embedUrl} audioUrl={music.audioUrl} />
 
       <section id="home">
         <Hero couple={couple} wedding={wedding} guestName={guestName} />

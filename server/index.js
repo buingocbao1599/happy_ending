@@ -135,6 +135,8 @@ app.post('/api/wishes/:slug', (req, res) => {
 
 // ===== ADMIN API =====
 
+const AUDIO_DIR = path.join(__dirname, '..', 'client', 'public', 'audio');
+
 // Multer config: lưu ảnh vào client/public/images/{coupleSlug}/
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -156,6 +158,28 @@ const upload = multer({
     else cb(new Error('Chỉ chấp nhận file ảnh'));
   },
   limits: { fileSize: 10 * 1024 * 1024 },
+});
+
+// Multer config: lưu audio vào client/public/audio/{coupleSlug}/
+const audioStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const slug = req.params.slug || 'default';
+    const dir = path.join(AUDIO_DIR, slug);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `music_${Date.now()}${ext}`);
+  },
+});
+const uploadAudio = multer({
+  storage: audioStorage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('audio/')) cb(null, true);
+    else cb(new Error('Chỉ chấp nhận file âm thanh'));
+  },
+  limits: { fileSize: 20 * 1024 * 1024 },
 });
 
 // GET: Danh sách cặp đôi cho admin
@@ -321,6 +345,23 @@ app.delete('/api/admin/gallery/:slug', (req, res) => {
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Không thể xóa' });
+  }
+});
+
+// POST: Upload nhạc nền (mp3) — dùng <audio> để phát được trên iOS
+app.post('/api/admin/audio/:slug', uploadAudio.single('audio'), (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'Không có file audio' });
+    const slug = req.params.slug;
+    const audioUrl = `/audio/${slug}/${req.file.filename}`;
+    const data = readJSON(getWeddingPath(slug));
+    if (!data.music) data.music = {};
+    data.music.audioUrl = audioUrl;
+    writeJSON(getWeddingPath(slug), data);
+    syncToPublic(slug, data);
+    res.json({ success: true, audioUrl });
+  } catch (err) {
+    res.status(500).json({ error: 'Upload audio thất bại' });
   }
 });
 

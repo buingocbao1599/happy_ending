@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright:*)",
+      "Bash(playwright-cli eval:*)",
+      "Bash(playwright-cli run-code:*)",
+      "Bash(playwright-cli resize:*)",
+      "Bash(playwright-cli screenshot:*)",
+      "Bash(playwright-cli press:*)",
+      "Bash(playwright-cli snapshot:*)",
+      "Bash(playwright-cli click:*)",
+      "Bash(playwright-cli goto:*)",
+      "Bash(playwright-cli mousewheel:*)",
+      "Bash(playwright-cli mousemove:*)",
+      "Bash(playwright-cli type:*)",
+      "Bash(playwright-cli close:*)",
+      "Bash(playwright-cli open:*)",
+      "Bash(npx playwright-cli:*)",
+      "Bash(for pos:*)",
+      "Bash(do npx:*)",
+      "Bash(break)",
+      "Bash(done)"
+    ]
+  }
+}

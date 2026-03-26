@@ -2,3 +2,12 @@ node_modules/
 client/build/
 .env
 *.log
+
+# Test data & reports
+e2e/
+playwright-report/
+test-results/
+playwright.config.js
+client/public/data/couples/e2e_test_*/
+client/public/data/couples/test_couple/
+client/public/data/couples/new_test_couple/

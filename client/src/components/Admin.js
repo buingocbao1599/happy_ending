@@ -298,6 +298,34 @@ function CoupleAdmin({ slug }) {
     input.click();
   };
 
+  const handleUploadAudio = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'audio/*';
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('audio', file);
+      try {
+        const res = await fetch(`${API}/audio/${encodeURIComponent(slug)}`, {
+          method: 'POST',
+          body: formData,
+        });
+        const result = await res.json();
+        if (result.success) {
+          setData((prev) => ({ ...prev, music: { ...prev.music, audioUrl: result.audioUrl } }));
+          showMessage('Upload nhạc thành công! Nhạc sẽ phát được trên mọi thiết bị.');
+        } else {
+          showMessage(result.error || 'Upload thất bại');
+        }
+      } catch {
+        showMessage('Không thể kết nối server');
+      }
+    };
+    input.click();
+  };
+
   const handleSaveTemplate = async (templateId) => {
     // Optimistic update: cập nhật UI ngay lập tức
     setData((prev) => ({
@@ -535,6 +563,23 @@ function CoupleAdmin({ slug }) {
 
       {activeTab === 'template' && (
         <div className="admin-section">
+          {/* Nhạc nền */}
+          <div className="admin-card">
+            <h2>Nhạc nền</h2>
+            <p className="admin-hint">
+              Upload file mp3 để nhạc phát được trên <strong>mọi thiết bị kể cả iPhone</strong>.
+              {data.music?.audioUrl
+                ? <span style={{ color: '#4a7c59' }}> ✓ Đã có nhạc</span>
+                : <span style={{ color: '#e63946' }}> Chưa có nhạc</span>}
+            </p>
+            {data.music?.audioUrl && (
+              <audio controls src={data.music.audioUrl} style={{ width: '100%', marginBottom: '0.5rem' }} />
+            )}
+            <button className="admin-upload-btn" onClick={handleUploadAudio}>
+              {data.music?.audioUrl ? 'Đổi nhạc (mp3)' : 'Upload nhạc (mp3)'}
+            </button>
+          </div>
+
           <div className="admin-card">
             <h2>Chọn giao diện thiệp cưới</h2>
             <p className="admin-hint">

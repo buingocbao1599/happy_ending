@@ -274,10 +274,10 @@
 
 @keyframes petalFall {
   0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.8; }
-  25%  { transform: translateY(25vh) rotate(90deg) translateX(30px); }
-  50%  { transform: translateY(50vh) rotate(180deg) translateX(-20px); }
-  75%  { transform: translateY(75vh) rotate(270deg) translateX(25px); }
-  100% { transform: translateY(110vh) rotate(360deg) translateX(-10px); opacity: 0; }
+  25%  { transform: translateY(250px) rotate(90deg) translateX(30px); }
+  50%  { transform: translateY(500px) rotate(180deg) translateX(-20px); }
+  75%  { transform: translateY(750px) rotate(270deg) translateX(25px); }
+  100% { transform: translateY(1100px) rotate(360deg) translateX(-10px); opacity: 0; }
 }
 
 /* Snow */
@@ -292,9 +292,9 @@
 
 @keyframes snowFall {
   0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.9; }
-  33%  { transform: translateY(33vh) translateX(15px) rotate(120deg); }
-  66%  { transform: translateY(66vh) translateX(-10px) rotate(240deg); }
-  100% { transform: translateY(110vh) translateX(5px) rotate(360deg); opacity: 0; }
+  33%  { transform: translateY(330px) translateX(15px) rotate(120deg); }
+  66%  { transform: translateY(660px) translateX(-10px) rotate(240deg); }
+  100% { transform: translateY(1100px) translateX(5px) rotate(360deg); opacity: 0; }
 }
 
 /* Leaf */
@@ -308,11 +308,11 @@
 
 @keyframes leafFall {
   0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.85; }
-  20%  { transform: translateY(20vh) rotate(72deg) translateX(40px); }
-  40%  { transform: translateY(40vh) rotate(144deg) translateX(-30px); }
-  60%  { transform: translateY(60vh) rotate(216deg) translateX(35px); }
-  80%  { transform: translateY(80vh) rotate(288deg) translateX(-20px); }
-  100% { transform: translateY(110vh) rotate(360deg) translateX(10px); opacity: 0; }
+  20%  { transform: translateY(200px) rotate(72deg) translateX(40px); }
+  40%  { transform: translateY(400px) rotate(144deg) translateX(-30px); }
+  60%  { transform: translateY(600px) rotate(216deg) translateX(35px); }
+  80%  { transform: translateY(800px) rotate(288deg) translateX(-20px); }
+  100% { transform: translateY(1100px) rotate(360deg) translateX(10px); opacity: 0; }
 }
 
 /* Bubble */

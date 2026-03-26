@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
-function MusicPlayer({ embedUrl, autoPlay }) {
+// audioUrl (file mp3 trực tiếp): dùng <audio> — hoạt động trên iOS Safari
+// embedUrl (SoundCloud): dùng iframe — chỉ đáng tin cậy trên desktop
+function MusicPlayer({ embedUrl, audioUrl }) {
   const [playing, setPlaying] = useState(false);
   const [showEmbed, setShowEmbed] = useState(false);
+  const audioRef = useRef(null);
 
-  // Auto play nhạc ngầm khi mở thiệp
-  useEffect(() => {
-    if (autoPlay) {
-      setPlaying(true);
-    }
-  }, [autoPlay]);
+  const hasDirectAudio = !!audioUrl;
 
   const toggle = () => {
-    if (playing) {
-      // Tắt nhạc — ẩn iframe hoàn toàn
-      setPlaying(false);
-      setShowEmbed(false);
+    if (hasDirectAudio) {
+      // <audio> element: gọi play()/pause() trực tiếp trong event handler
+      // → iOS Safari cho phép vì đây là user gesture trực tiếp
+      if (playing) {
+        audioRef.current?.pause();
+        setPlaying(false);
+      } else {
+        audioRef.current?.play().catch(() => {});
+        setPlaying(true);
+      }
     } else {
-      // Bật nhạc
-      setPlaying(true);
-      setShowEmbed(false);
+      // iframe SoundCloud fallback (desktop)
+      if (playing) {
+        setPlaying(false);
+        setShowEmbed(false);
+      } else {
+        setPlaying(true);
+      }
     }
   };
 
   const toggleEmbed = () => {
-    setShowEmbed(!showEmbed);
+    if (!hasDirectAudio) setShowEmbed((s) => !s);
   };
 
   return (
@@ -38,8 +46,13 @@ function MusicPlayer({ embedUrl, autoPlay }) {
         <div className="music-icon">♪</div>
       </button>
 
-      {/* iframe luôn ẩn khi phát nhạc, chỉ hiện khi double click */}
-      {playing && (
+      {/* Audio trực tiếp — hoạt động trên mọi thiết bị kể cả iOS */}
+      {hasDirectAudio && (
+        <audio ref={audioRef} src={audioUrl} loop preload="none" />
+      )}
+
+      {/* iframe SoundCloud — fallback khi không có audioUrl */}
+      {!hasDirectAudio && playing && (
         <div className={`music-embed ${showEmbed ? '' : 'music-hidden'}`}>
           <iframe
             title="Wedding Music"

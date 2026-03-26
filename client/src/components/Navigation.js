@@ -15,15 +15,16 @@ function Navigation() {
   ];
 
   useEffect(() => {
+    const sectionIds = ['home', 'couple', 'lovestory', 'events', 'gallery', 'rsvp', 'gift'];
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
 
-      const sections = navItems.map((item) => document.getElementById(item.id));
       const scrollPosition = window.scrollY + window.innerHeight / 3;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && sections[i].offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i].id);
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(sectionIds[i]);
           break;
         }
       }
@@ -31,7 +32,7 @@ function Navigation() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  });
+  }, []);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
